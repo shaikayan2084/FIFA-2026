@@ -22,3 +22,9 @@ Live Demo
 Purpose
 
 This project was created to showcase front-end web development skills while providing an informative and visually appealing experience for football fans following the FIFA World Cup 2026.
+
+
+
+
+<img width="1320" height="756" alt="Screenshot 2026-06-22 220937" src="https://github.com/user-attachments/assets/9cbe3629-d529-440d-ae66-f60fa3a6d2e5" />
+
