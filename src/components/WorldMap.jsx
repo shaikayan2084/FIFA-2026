@@ -61,8 +61,8 @@ const WorldMap = () => {
                 stroke="#fff"
                 strokeWidth={1.5}
                 style={{ cursor: "pointer", transition: "r 0.2s" }}
-                onMouseEnter={(e) => { (e.target as SVGCircleElement).setAttribute("r", "9") }}
-                onMouseLeave={(e) => { (e.target as SVGCircleElement).setAttribute("r", "6") }}
+                onMouseEnter={(e) => { e.target.setAttribute("r", "9") }}
+                onMouseLeave={(e) => { e.target.setAttribute("r", "6") }}
               />
             </Marker>
           ))}
