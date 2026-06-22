@@ -1,0 +1,58 @@
+export const teams = [
+  { id: 1, name: "Mexico", captain: "Edson Álvarez", conf: "CONCACAF", coords: [-99.13, 19.43], group: "A", flag: "🇲🇽", flagImg: "https://flagcdn.com/w80/mx.png" },
+  { id: 2, name: "South Korea", captain: "Son Heung-min", conf: "AFC", coords: [127.0, 37.5], group: "A", flag: "🇰🇷", flagImg: "https://flagcdn.com/w80/kr.png" },
+  { id: 3, name: "South Africa", captain: "Ronwen Williams", conf: "CAF", coords: [25.0, -29.0], group: "A", flag: "🇿🇦", flagImg: "https://flagcdn.com/w80/za.png" },
+  { id: 4, name: "Czechia", captain: "Tomáš Souček", conf: "UEFA", coords: [15.5, 49.8], group: "A", flag: "🇨🇿", flagImg: "https://flagcdn.com/w80/cz.png" },
+  { id: 5, name: "Canada", captain: "Alphonso Davies", conf: "CONCACAF", coords: [-100.0, 55.0], group: "B", flag: "🇨🇦", flagImg: "https://flagcdn.com/w80/ca.png" },
+  { id: 6, name: "Switzerland", captain: "Granit Xhaka", conf: "UEFA", coords: [7.5, 46.8], group: "B", flag: "🇨🇭", flagImg: "https://flagcdn.com/w80/ch.png" },
+  { id: 7, name: "Qatar", captain: "Akram Afif", conf: "AFC", coords: [51.2, 25.3], group: "B", flag: "🇶🇦", flagImg: "https://flagcdn.com/w80/qa.png" },
+  { id: 8, name: "Bosnia & Herzegovina", captain: "Edin Džeko", conf: "UEFA", coords: [18.0, 44.0], group: "B", flag: "🇧🇦", flagImg: "https://flagcdn.com/w80/ba.png" },
+  { id: 9, name: "Brazil", captain: "Danilo", conf: "CONMEBOL", coords: [-55.0, -14.0], group: "C", flag: "🇧🇷", flagImg: "https://flagcdn.com/w80/br.png" },
+  { id: 10, name: "Morocco", captain: "Achraf Hakimi", conf: "CAF", coords: [-6.0, 32.0], group: "C", flag: "🇲🇦", flagImg: "https://flagcdn.com/w80/ma.png" },
+  { id: 11, name: "Scotland", captain: "Andy Robertson", conf: "UEFA", coords: [-4.0, 56.5], group: "C", flag: "🏴󠁧󠁢󠁳󠁣󠁴󠁿", flagImg: "https://flagcdn.com/w80/gb-sct.png" },
+  { id: 12, name: "Haiti", captain: "Johnny Placide", conf: "CONCACAF", coords: [-72.3, 19.0], group: "C", flag: "🇭🇹", flagImg: "https://flagcdn.com/w80/ht.png" },
+  { id: 13, name: "United States", captain: "Christian Pulisic", conf: "CONCACAF", coords: [-100.0, 38.0], group: "D", flag: "🇺🇸", flagImg: "https://flagcdn.com/w80/us.png" },
+  { id: 14, name: "Australia", captain: "Mathew Ryan", conf: "AFC", coords: [134.0, -25.0], group: "D", flag: "🇦🇺", flagImg: "https://flagcdn.com/w80/au.png" },
+  { id: 15, name: "Paraguay", captain: "Gustavo Gómez", conf: "CONMEBOL", coords: [-58.0, -23.5], group: "D", flag: "🇵🇾", flagImg: "https://flagcdn.com/w80/py.png" },
+  { id: 16, name: "Türkiye", captain: "Hakan Çalhanoğlu", conf: "UEFA", coords: [35.0, 39.0], group: "D", flag: "🇹🇷", flagImg: "https://flagcdn.com/w80/tr.png" },
+  { id: 17, name: "Germany", captain: "Joshua Kimmich", conf: "UEFA", coords: [10.0, 51.0], group: "E", flag: "🇩🇪", flagImg: "https://flagcdn.com/w80/de.png" },
+  { id: 18, name: "Ecuador", captain: "Enner Valencia", conf: "CONMEBOL", coords: [-78.0, -1.0], group: "E", flag: "🇪🇨", flagImg: "https://flagcdn.com/w80/ec.png" },
+  { id: 19, name: "Ivory Coast", captain: "Serge Aurier", conf: "CAF", coords: [-5.0, 7.5], group: "E", flag: "🇨🇮", flagImg: "https://flagcdn.com/w80/ci.png" },
+  { id: 20, name: "Curaçao", captain: "Cuco Martina", conf: "CONCACAF", coords: [-69.0, 12.2], group: "E", flag: "🇨🇼", flagImg: "https://flagcdn.com/w80/cw.png" },
+  { id: 21, name: "Netherlands", captain: "Virgil van Dijk", conf: "UEFA", coords: [5.0, 52.0], group: "F", flag: "🇳🇱", flagImg: "https://flagcdn.com/w80/nl.png" },
+  { id: 22, name: "Japan", captain: "Wataru Endo", conf: "AFC", coords: [138.0, 36.0], group: "F", flag: "🇯🇵", flagImg: "https://flagcdn.com/w80/jp.png" },
+  { id: 23, name: "Tunisia", captain: "Youssef Msakni", conf: "CAF", coords: [9.0, 34.0], group: "F", flag: "🇹🇳", flagImg: "https://flagcdn.com/w80/tn.png" },
+  { id: 24, name: "Sweden", captain: "Victor Lindelöf", conf: "UEFA", coords: [15.0, 62.0], group: "F", flag: "🇸🇪", flagImg: "https://flagcdn.com/w80/se.png" },
+  { id: 25, name: "Belgium", captain: "Kevin De Bruyne", conf: "UEFA", coords: [4.5, 50.5], group: "G", flag: "🇧🇪", flagImg: "https://flagcdn.com/w80/be.png" },
+  { id: 26, name: "Iran", captain: "Alireza Jahanbakhsh", conf: "AFC", coords: [54.0, 32.0], group: "G", flag: "🇮🇷", flagImg: "https://flagcdn.com/w80/ir.png" },
+  { id: 27, name: "Egypt", captain: "Mohamed Salah", conf: "CAF", coords: [31.0, 27.0], group: "G", flag: "🇪🇬", flagImg: "https://flagcdn.com/w80/eg.png" },
+  { id: 28, name: "New Zealand", captain: "Chris Wood", conf: "OFC", coords: [174.0, -41.0], group: "G", flag: "🇳🇿", flagImg: "https://flagcdn.com/w80/nz.png" },
+  { id: 29, name: "Spain", captain: "Álvaro Morata", conf: "UEFA", coords: [-4.0, 40.0], group: "H", flag: "🇪🇸", flagImg: "https://flagcdn.com/w80/es.png" },
+  { id: 30, name: "Uruguay", captain: "Federico Valverde", conf: "CONMEBOL", coords: [-56.0, -32.0], group: "H", flag: "🇺🇾", flagImg: "https://flagcdn.com/w80/uy.png" },
+  { id: 31, name: "Saudi Arabia", captain: "Salem Al-Dawsari", conf: "AFC", coords: [45.0, 24.0], group: "H", flag: "🇸🇦", flagImg: "https://flagcdn.com/w80/sa.png" },
+  { id: 32, name: "Cape Verde", captain: "Ryan Mendes", conf: "CAF", coords: [-24.0, 15.0], group: "H", flag: "🇨🇻", flagImg: "https://flagcdn.com/w80/cv.png" },
+  { id: 33, name: "France", captain: "Kylian Mbappé", conf: "UEFA", coords: [2.0, 46.0], group: "I", flag: "🇫🇷", flagImg: "https://flagcdn.com/w80/fr.png" },
+  { id: 34, name: "Senegal", captain: "Kalidou Koulibaly", conf: "CAF", coords: [-14.0, 14.0], group: "I", flag: "🇸🇳", flagImg: "https://flagcdn.com/w80/sn.png" },
+  { id: 35, name: "Norway", captain: "Martin Ødegaard", conf: "UEFA", coords: [10.0, 62.0], group: "I", flag: "🇳🇴", flagImg: "https://flagcdn.com/w80/no.png" },
+  { id: 36, name: "Iraq", captain: "Mohamed Al-Hardan", conf: "AFC", coords: [44.0, 33.0], group: "I", flag: "🇮🇶", flagImg: "https://flagcdn.com/w80/iq.png" },
+  { id: 37, name: "Argentina", captain: "Lionel Messi", conf: "CONMEBOL", coords: [-64.0, -34.0], group: "J", flag: "🇦🇷", flagImg: "https://flagcdn.com/w80/ar.png" },
+  { id: 38, name: "Austria", captain: "David Alaba", conf: "UEFA", coords: [14.0, 48.0], group: "J", flag: "🇦🇹", flagImg: "https://flagcdn.com/w80/at.png" },
+  { id: 39, name: "Algeria", captain: "Riyad Mahrez", conf: "CAF", coords: [3.0, 28.0], group: "J", flag: "🇩🇿", flagImg: "https://flagcdn.com/w80/dz.png" },
+  { id: 40, name: "Jordan", captain: "Musa Al-Taamari", conf: "AFC", coords: [36.0, 31.0], group: "J", flag: "🇯🇴", flagImg: "https://flagcdn.com/w80/jo.png" },
+  { id: 41, name: "Portugal", captain: "Cristiano Ronaldo", conf: "UEFA", coords: [-8.0, 39.0], group: "K", flag: "🇵🇹", flagImg: "https://flagcdn.com/w80/pt.png" },
+  { id: 42, name: "Colombia", captain: "James Rodríguez", conf: "CONMEBOL", coords: [-74.0, 4.0], group: "K", flag: "🇨🇴", flagImg: "https://flagcdn.com/w80/co.png" },
+  { id: 43, name: "Uzbekistan", captain: "Eldor Shomurodov", conf: "AFC", coords: [65.0, 41.0], group: "K", flag: "🇺🇿", flagImg: "https://flagcdn.com/w80/uz.png" },
+  { id: 44, name: "DR Congo", captain: "Chancel Mbemba", conf: "CAF", coords: [25.0, -4.0], group: "K", flag: "🇨🇩", flagImg: "https://flagcdn.com/w80/cd.png" },
+  { id: 45, name: "England", captain: "Harry Kane", conf: "UEFA", coords: [-1.0, 52.0], group: "L", flag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", flagImg: "https://flagcdn.com/w80/gb-eng.png" },
+  { id: 46, name: "Croatia", captain: "Luka Modrić", conf: "UEFA", coords: [15.5, 45.0], group: "L", flag: "🇭🇷", flagImg: "https://flagcdn.com/w80/hr.png" },
+  { id: 47, name: "Panama", captain: "Aníbal Godoy", conf: "CONCACAF", coords: [-80.0, 8.5], group: "L", flag: "🇵🇦", flagImg: "https://flagcdn.com/w80/pa.png" },
+  { id: 48, name: "Ghana", captain: "André Ayew", conf: "CAF", coords: [-1.0, 8.0], group: "L", flag: "🇬🇭", flagImg: "https://flagcdn.com/w80/gh.png" },
+];
+
+export const groups = teams.reduce((acc, t) => {
+  if (!acc[t.group]) acc[t.group] = [];
+  acc[t.group].push(t);
+  return acc;
+}, {});
+
+export const groupList = Object.keys(groups).sort();
