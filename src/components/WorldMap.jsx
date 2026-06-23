@@ -1,9 +1,7 @@
 import { useState } from "react";
-import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps";
 import { teams, groups } from "../data/teams";
 import CaptainPanel from "./CaptainPanel";
-
-const GEO_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
+import Globe from "./Globe";
 
 const groupColors = {
   A: "#FF6B6B", B: "#4ECDC4", C: "#45B7D1", D: "#96CEB4",
@@ -11,21 +9,18 @@ const groupColors = {
   I: "#BB8FCE", J: "#85C1E9", K: "#F0B27A", L: "#82E0AA",
 };
 
-const groupColorDark = {
-  A: "#cc4444", B: "#33aaa0", C: "#3399bb", D: "#66aa88",
-  E: "#ccbb44", F: "#aa66bb", G: "#55aa88", H: "#ccaa44",
-  I: "#8844aa", J: "#4488bb", K: "#bb6622", L: "#44aa66",
-};
-
 const WorldMap = () => {
   const [selectedTeam, setSelectedTeam] = useState(null);
   const [tooltip, setTooltip] = useState(null);
   const [selectedGroup, setSelectedGroup] = useState(null);
 
-  const filteredTeams = selectedGroup ? groups[selectedGroup] : teams;
-
   const toggleGroup = (group) => {
     setSelectedGroup(selectedGroup === group ? null : group);
+    if (selectedGroup !== group) {
+      setTimeout(() => {
+        document.getElementById(`group-section-${group}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
+    }
   };
 
   return (
@@ -36,58 +31,13 @@ const WorldMap = () => {
       </div>
 
       <div className="map-wrapper">
-        <ComposableMap
-          projection="geoMercator"
-          projectionConfig={{ scale: 130, center: [10, 25] }}
-          style={{ width: "100%", height: "100%" }}
-        >
-          <Geographies geography={GEO_URL}>
-            {({ geographies }) =>
-              geographies.map((geo) => (
-                <Geography
-                  key={geo.rsmKey}
-                  geography={geo}
-                  fill="#2d2d44"
-                  stroke="#1a1a2e"
-                  strokeWidth={0.5}
-                  style={{
-                    default: { outline: "none" },
-                    hover: { fill: "#3d3d5c", outline: "none" },
-                    pressed: { outline: "none" },
-                  }}
-                />
-              ))
-            }
-          </Geographies>
-
-          {teams.map((team) => {
-            const isInSelected = !selectedGroup || selectedGroup === team.group;
-            return (
-              <Marker
-                key={team.id}
-                coordinates={team.coords}
-                onMouseEnter={() => setTooltip(team)}
-                onMouseLeave={() => setTooltip(null)}
-                onClick={() => setSelectedTeam(team)}
-              >
-                <circle
-                  r={isInSelected ? 6 : 3}
-                  fill={isInSelected ? groupColors[team.group] : "#555566"}
-                  stroke={isInSelected ? "#fff" : "#444455"}
-                  strokeWidth={isInSelected ? 1.5 : 0.5}
-                  style={{
-                    cursor: "pointer",
-                    transition: "r 0.2s, fill 0.2s, opacity 0.2s",
-                    opacity: isInSelected ? 1 : 0.3,
-                  }}
-                  onMouseEnter={(e) => { if (isInSelected) e.target.setAttribute("r", "9") }}
-                  onMouseLeave={(e) => { if (isInSelected) e.target.setAttribute("r", "6") }}
-                />
-              </Marker>
-            );
-          })}
-        </ComposableMap>
-
+        <Globe
+          teams={teams}
+          selectedGroup={selectedGroup}
+          groupColors={groupColors}
+          onSelectTeam={setSelectedTeam}
+          onTooltip={setTooltip}
+        />
         {tooltip && (
           <div className="map-tooltip" style={{ top: "10px", right: "10px" }}>
             <span className="tooltip-flag">{tooltip.flag}</span>
@@ -123,7 +73,7 @@ const WorldMap = () => {
         {Object.entries(groups).map(([g, gTeams]) => {
           if (selectedGroup && selectedGroup !== g) return null;
           return (
-            <div key={g} className="group-column" style={{ borderTopColor: groupColors[g] }}>
+            <div key={g} id={`group-section-${g}`} className="group-column" style={{ borderTopColor: groupColors[g] }}>
               <div className="group-header" style={{ color: groupColors[g] }}>
                 Group {g}
               </div>
@@ -138,7 +88,16 @@ const WorldMap = () => {
                   <img src={t.flagImg} alt="" className="group-team-flag" />
                   <div className="group-team-info">
                     <span className="group-team-name">{t.name}</span>
-                    <span className="group-team-captain">Capt: {t.captain}</span>
+                    <div className="group-team-captain-row">
+                      {t.captainImg ? (
+                        <img src={t.captainImg} alt="" className="group-captain-img" />
+                      ) : (
+                        <span className="group-captain-placeholder">
+                          {t.captain.charAt(0)}
+                        </span>
+                      )}
+                      <span className="group-team-captain">Capt: {t.captain}</span>
+                    </div>
                   </div>
                   <div className="group-team-winner" style={{ color: groupColors[g] }}>
                     {t.firstTitle ? t.firstTitle : "—"}
