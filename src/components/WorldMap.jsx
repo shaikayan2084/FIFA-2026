@@ -127,12 +127,12 @@ const WorldMap = () => {
                   onMouseEnter={() => setTooltip(t)}
                   onMouseLeave={() => setTooltip(null)}
                 >
-                  <img src={t.flagImg} alt="" className="group-team-flag" />
+                  <img src={t.flagImg} alt="" className="group-team-flag" loading="lazy" />
                   <div className="group-team-info">
                     <span className="group-team-name">{t.name}</span>
                     <div className="group-team-captain-row">
                       {t.captainImg ? (
-                        <img src={t.captainImg} alt="" className="group-captain-img" />
+                        <img src={t.captainImg} alt="" className="group-captain-img" loading="lazy" />
                       ) : (
                         <span className="group-captain-placeholder">
                           {t.captain.charAt(0)}

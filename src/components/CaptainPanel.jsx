@@ -52,7 +52,7 @@ const CaptainPanel = ({ team, onClose }) => {
           <button className="captain-close" onClick={onClose}>&times;</button>
 
           <div className="captain-badge" style={{ borderColor: gColor }}>
-            <img src={team.flagImg} alt={team.name} className="captain-flag" />
+            <img src={team.flagImg} alt={team.name} className="captain-flag" loading="lazy" />
           </div>
 
           <h2 className="captain-team-name">{team.name}</h2>
@@ -70,7 +70,7 @@ const CaptainPanel = ({ team, onClose }) => {
           <div className="captain-info">
             <div className="captain-avatar">
               {team.captainImg ? (
-                <img src={team.captainImg} alt={team.captain} className="captain-img" />
+                <img src={team.captainImg} alt={team.captain} className="captain-img" loading="lazy" />
               ) : (
                 team.captain.split(" ").map((n) => n[0]).join("").slice(0, 2)
               )}
