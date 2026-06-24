@@ -70,7 +70,13 @@ const CaptainPanel = ({ team, onClose }) => {
           <div className="captain-info">
             <div className="captain-avatar">
               {team.captainImg ? (
-                <img src={team.captainImg} alt={team.captain} className="captain-img" loading="lazy" />
+                <>
+                  <img src={team.captainImg} alt={team.captain} className="captain-img" loading="lazy"
+                    onError={(e) => { e.target.style.display = 'none'; e.target.parentNode.querySelector('.captain-initials').style.display = 'flex'; }} />
+                  <span className="captain-initials" style={{ display: 'none' }}>
+                    {team.captain.split(" ").map((n) => n[0]).join("").slice(0, 2)}
+                  </span>
+                </>
               ) : (
                 team.captain.split(" ").map((n) => n[0]).join("").slice(0, 2)
               )}

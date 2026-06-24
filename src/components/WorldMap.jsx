@@ -132,12 +132,12 @@ const WorldMap = () => {
                     <span className="group-team-name">{t.name}</span>
                     <div className="group-team-captain-row">
                       {t.captainImg ? (
-                        <img src={t.captainImg} alt="" className="group-captain-img" loading="lazy" />
-                      ) : (
-                        <span className="group-captain-placeholder">
-                          {t.captain.charAt(0)}
-                        </span>
-                      )}
+                        <img src={t.captainImg} alt="" className="group-captain-img" loading="lazy"
+                          onError={(e) => { e.target.style.display = 'none'; e.target.parentNode.querySelector('.group-captain-placeholder').style.display = 'inline-flex'; }} />
+                      ) : null}
+                      <span className="group-captain-placeholder" style={{ display: t.captainImg ? 'none' : 'inline-flex' }}>
+                        {t.captain.charAt(0)}
+                      </span>
                       <span className="group-team-captain">Capt: {t.captain}</span>
                     </div>
                   </div>
