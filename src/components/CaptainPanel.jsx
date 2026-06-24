@@ -41,7 +41,7 @@ const CaptainPanel = ({ team, onClose }) => {
           exit={{ scale: 0.8, opacity: 0, y: 60, rotateX: 20 }}
           transition={{ type: "spring", stiffness: 300, damping: 25 }}
           onClick={(e) => e.stopPropagation()}
-          style={{ perspective: 1000 }}
+          style={{ '--glow-color': gColor }}
         >
           <motion.div
             className="captain-glow"

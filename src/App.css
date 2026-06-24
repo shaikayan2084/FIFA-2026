@@ -3,7 +3,45 @@
   background: #0f0f1a;
   color: #e0e0e0;
   font-family: 'Inter', system-ui, sans-serif;
-  perspective: 1200px;
+  perspective: 1400px;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.app::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(102, 126, 234, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(118, 75, 162, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(100, 100, 255, 0.04) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  animation: particleFloat linear infinite;
+}
+
+@keyframes particleFloat {
+  0% { transform: translateY(100vh) translateX(0) scale(1); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-10vh) translateX(50px) scale(0.5); opacity: 0; }
 }
 
 .world-map-container {
@@ -11,12 +49,15 @@
   margin: 0 auto;
   padding: 20px;
   transform-style: preserve-3d;
+  position: relative;
+  z-index: 1;
 }
 
 .map-header {
   text-align: center;
   margin-bottom: 24px;
-  transform: translateZ(20px);
+  transform: translateZ(40px);
+  perspective: 800px;
 }
 
 .map-header h1 {
@@ -28,17 +69,24 @@
   margin: 0 0 8px;
   letter-spacing: -0.5px;
   animation: titleFloat 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 30px rgba(102, 126, 234, 0.15));
 }
 
 @keyframes titleFloat {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-4px) scale(1.01); }
+  0%, 100% { transform: translateY(0) scale(1) rotateX(0deg); }
+  50% { transform: translateY(-6px) scale(1.02) rotateX(2deg); }
 }
 
 .map-subtitle {
   font-size: 1.1rem;
   color: #8888aa;
   margin: 0;
+  animation: subtitleFade 2s ease-out;
+}
+
+@keyframes subtitleFade {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .map-wrapper {
@@ -50,12 +98,23 @@
   overflow: hidden;
   border: 1px solid #2a2a44;
   transform: translateZ(0);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.15s ease-out, box-shadow 0.3s ease;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), inset 0 0 80px rgba(100, 100, 255, 0.03);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.map-wrapper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(100, 100, 255, 0.04), transparent 60%);
+  pointer-events: none;
+  transition: background 0.3s;
 }
 
 .map-wrapper:hover {
-  box-shadow: 0 15px 60px rgba(0, 0, 0, 0.6), inset 0 0 100px rgba(100, 100, 255, 0.05);
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.7), inset 0 0 100px rgba(100, 100, 255, 0.05);
 }
 
 .map-tooltip {
@@ -72,7 +131,13 @@
   pointer-events: none;
   z-index: 10;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-  transform: translateZ(10px);
+  transform: translateZ(20px);
+  animation: tooltipPop 0.2s ease-out;
+}
+
+@keyframes tooltipPop {
+  from { opacity: 0; transform: translateZ(20px) scale(0.9); }
+  to { opacity: 1; transform: translateZ(20px) scale(1); }
 }
 
 .tooltip-flag {
@@ -85,6 +150,8 @@
   gap: 8px;
   justify-content: center;
   margin-top: 20px;
+  transform: translateZ(20px);
+  perspective: 600px;
 }
 
 .group-chip {
@@ -99,18 +166,33 @@
   color: #c0c0e0;
   background: rgba(26, 26, 46, 0.8);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transform: translateZ(0);
+  position: relative;
+  overflow: hidden;
+}
+
+.group-chip::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.05) 50%, transparent 60%);
+  transform: translateX(-100%) rotate(25deg);
+  transition: transform 0.5s;
+}
+
+.group-chip:hover::before {
+  transform: translateX(100%) rotate(25deg);
 }
 
 .group-chip:hover {
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 4px 15px rgba(100, 100, 255, 0.2);
+  transform: translateY(-4px) scale(1.08) translateZ(10px);
+  box-shadow: 0 8px 25px rgba(100, 100, 255, 0.25);
 }
 
 .group-chip.active {
-  box-shadow: 0 0 20px rgba(100, 100, 255, 0.3);
-  transform: translateY(-2px) scale(1.08);
+  box-shadow: 0 0 30px rgba(100, 100, 255, 0.35), inset 0 0 20px rgba(100, 100, 255, 0.05);
+  transform: translateY(-3px) scale(1.1) translateZ(15px);
 }
 
 .clear-btn {
@@ -123,6 +205,11 @@
   height: 8px;
   border-radius: 50%;
   display: inline-block;
+  transition: transform 0.3s;
+}
+
+.group-chip:hover .group-dot {
+  transform: scale(1.5);
 }
 
 .group-teams {
@@ -132,6 +219,7 @@
   flex-wrap: wrap;
   justify-content: center;
   transform-style: preserve-3d;
+  perspective: 1200px;
 }
 
 .group-column {
@@ -142,14 +230,34 @@
   background: rgba(26, 26, 46, 0.6);
   border-radius: 0 0 12px 12px;
   padding: 0 0 8px;
-  transform: translateZ(0);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transform: translateZ(0) rotateX(0deg);
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.5s;
   perspective: 800px;
+  animation: columnEnter 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) backwards;
+  opacity: 0;
 }
 
+@keyframes columnEnter {
+  from { opacity: 0; transform: translateZ(-50px) rotateX(5deg) translateY(30px); }
+  to { opacity: 1; transform: translateZ(0) rotateX(0deg) translateY(0); }
+}
+
+.group-column:nth-child(1) { animation-delay: 0.05s; }
+.group-column:nth-child(2) { animation-delay: 0.1s; }
+.group-column:nth-child(3) { animation-delay: 0.15s; }
+.group-column:nth-child(4) { animation-delay: 0.2s; }
+.group-column:nth-child(5) { animation-delay: 0.25s; }
+.group-column:nth-child(6) { animation-delay: 0.3s; }
+.group-column:nth-child(7) { animation-delay: 0.35s; }
+.group-column:nth-child(8) { animation-delay: 0.4s; }
+.group-column:nth-child(9) { animation-delay: 0.45s; }
+.group-column:nth-child(10) { animation-delay: 0.5s; }
+.group-column:nth-child(11) { animation-delay: 0.55s; }
+.group-column:nth-child(12) { animation-delay: 0.6s; }
+
 .group-column:hover {
-  transform: translateZ(15px) rotateX(2deg);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  transform: translateZ(25px) rotateX(3deg) translateY(-5px);
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.5);
 }
 
 .group-header {
@@ -158,6 +266,7 @@
   padding: 8px 14px;
   text-align: center;
   letter-spacing: 2px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
 .group-team-row {
@@ -168,7 +277,7 @@
   margin: 2px 6px;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transform-style: preserve-3d;
   background: rgba(255, 255, 255, 0.02);
   position: relative;
@@ -179,19 +288,19 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.03), transparent);
-  transform: translateX(-100%);
-  transition: transform 0.5s ease;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.04), transparent);
+  transform: translateX(-100%) skewX(-15deg);
+  transition: transform 0.6s ease;
 }
 
 .group-team-row:hover::before {
-  transform: translateX(100%);
+  transform: translateX(100%) skewX(-15deg);
 }
 
 .group-team-row:hover {
   background: rgba(255, 255, 255, 0.06);
-  transform: translateZ(8px) scale(1.02);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transform: translateZ(15px) scale(1.03) translateX(3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
 .group-team-flag {
@@ -200,18 +309,17 @@
   border-radius: 2px;
   object-fit: cover;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s;
+}
+
+.group-team-row:hover .group-team-flag {
+  transform: scale(1.15) translateZ(5px);
 }
 
 .group-team-info {
   flex: 1;
   display: flex;
   flex-direction: column;
-}
-
-.group-team-name {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #e0e0f0;
 }
 
 .group-team-captain-row {
@@ -228,6 +336,12 @@
   object-fit: cover;
   border: 1px solid rgba(255,255,255,0.15);
   flex-shrink: 0;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.group-team-row:hover .group-captain-img {
+  transform: scale(1.2) translateZ(5px);
+  box-shadow: 0 0 10px rgba(100, 100, 255, 0.3);
 }
 
 .group-captain-placeholder {
@@ -244,18 +358,32 @@
   flex-shrink: 0;
 }
 
+.group-team-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #e0e0f0;
+  transition: color 0.3s;
+}
+
+.group-team-row:hover .group-team-name {
+  color: #fff;
+}
+
 .group-team-captain {
   font-size: 0.7rem;
   color: #8888aa;
 }
-
-
 
 .group-team-winner {
   font-size: 0.7rem;
   font-weight: 500;
   text-align: right;
   white-space: nowrap;
+  transition: transform 0.3s;
+}
+
+.group-team-row:hover .group-team-winner {
+  transform: translateZ(8px) scale(1.05);
 }
 
 .captain-overlay {
@@ -267,6 +395,12 @@
   align-items: center;
   justify-content: center;
   z-index: 100;
+  animation: overlayIn 0.3s ease;
+}
+
+@keyframes overlayIn {
+  from { opacity: 0; backdrop-filter: blur(0); }
+  to { opacity: 1; backdrop-filter: blur(4px); }
 }
 
 .captain-panel {
@@ -280,6 +414,25 @@
   text-align: center;
   position: relative;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  transform: translateZ(40px);
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.captain-panel::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 21px;
+  background: linear-gradient(135deg, var(--glow-color, #667eea), transparent 50%, var(--glow-color, #764ba2));
+  opacity: 0.15;
+  z-index: -1;
+  animation: panelGlow 3s ease-in-out infinite;
+}
+
+@keyframes panelGlow {
+  0%, 100% { opacity: 0.1; }
+  50% { opacity: 0.25; }
 }
 
 .captain-glow {
@@ -288,6 +441,12 @@
   border-radius: 50%;
   pointer-events: none;
   z-index: 0;
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.1); }
 }
 
 .captain-close {
@@ -302,10 +461,12 @@
   padding: 4px;
   line-height: 1;
   z-index: 2;
+  transition: transform 0.3s, color 0.3s;
 }
 
 .captain-close:hover {
   color: #fff;
+  transform: rotate(90deg) scale(1.2);
 }
 
 .captain-badge {
@@ -321,6 +482,13 @@
   background: #0f0f1a;
   position: relative;
   z-index: 1;
+  transition: transform 0.5s, box-shadow 0.5s;
+  transform-style: preserve-3d;
+}
+
+.captain-badge:hover {
+  transform: rotateY(15deg) translateZ(10px);
+  box-shadow: 0 0 30px rgba(100, 100, 255, 0.2);
 }
 
 .captain-flag {
@@ -336,6 +504,7 @@
   color: #fff;
   position: relative;
   z-index: 1;
+  transform: translateZ(10px);
 }
 
 .captain-group-tag {
@@ -348,6 +517,11 @@
   margin-bottom: 8px;
   position: relative;
   z-index: 1;
+  transition: transform 0.3s;
+}
+
+.captain-group-tag:hover {
+  transform: scale(1.05) translateZ(5px);
 }
 
 .captain-title-badge {
@@ -356,6 +530,12 @@
   margin-bottom: 8px;
   position: relative;
   z-index: 1;
+  animation: titleShine 3s ease-in-out infinite;
+}
+
+@keyframes titleShine {
+  0%, 100% { text-shadow: 0 0 5px rgba(255, 215, 0, 0.3); }
+  50% { text-shadow: 0 0 20px rgba(255, 215, 0, 0.6); }
 }
 
 .title-trophy {
@@ -364,7 +544,7 @@
 
 .captain-divider {
   height: 1px;
-  background: #2a2a44;
+  background: linear-gradient(90deg, transparent, #2a2a44, transparent);
   margin: 14px 0;
   position: relative;
   z-index: 1;
@@ -393,6 +573,20 @@
   color: #fff;
   flex-shrink: 0;
   overflow: hidden;
+  position: relative;
+  transition: transform 0.3s;
+}
+
+.captain-avatar:hover {
+  transform: scale(1.1) translateZ(15px);
+}
+
+.captain-avatar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.1);
 }
 
 .captain-initials {
@@ -438,6 +632,7 @@
   flex-wrap: wrap;
   position: relative;
   z-index: 1;
+  transform: translateZ(5px);
 }
 
 .meta-item {
@@ -445,6 +640,11 @@
   flex-direction: column;
   align-items: center;
   gap: 2px;
+  transition: transform 0.3s;
+}
+
+.meta-item:hover {
+  transform: translateY(-2px) translateZ(5px);
 }
 
 .meta-label {
@@ -488,13 +688,14 @@
   font-size: 0.75rem;
   color: #c0c0e0;
   transform: translateZ(0);
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .squad-pill:hover {
   background: rgba(100, 100, 255, 0.1);
-  transform: translateZ(4px) scale(1.05);
+  transform: translateZ(8px) scale(1.08) translateY(-2px);
   border-color: #667eea;
+  box-shadow: 0 4px 12px rgba(100, 100, 255, 0.2);
 }
 
 .squad-number {

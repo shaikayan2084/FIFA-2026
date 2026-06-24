@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps";
 import { teams, groups } from "../data/teams";
 import CaptainPanel from "./CaptainPanel";
@@ -11,10 +11,40 @@ const groupColors = {
   I: "#BB8FCE", J: "#85C1E9", K: "#F0B27A", L: "#82E0AA",
 };
 
+function Particles() {
+  const particles = Array.from({ length: 40 }, (_, i) => ({
+    id: i,
+    left: `${Math.random() * 100}%`,
+    size: `${2 + Math.random() * 3}px`,
+    delay: `${Math.random() * 20}s`,
+    duration: `${15 + Math.random() * 20}s`,
+    opacity: 0.1 + Math.random() * 0.25,
+  }));
+  return (
+    <div className="particles">
+      {particles.map((p) => (
+        <div
+          key={p.id}
+          className="particle"
+          style={{
+            left: p.left,
+            width: p.size,
+            height: p.size,
+            opacity: p.opacity,
+            animationDelay: p.delay,
+            animationDuration: p.duration,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
 const WorldMap = () => {
   const [selectedTeam, setSelectedTeam] = useState(null);
   const [tooltip, setTooltip] = useState(null);
   const [selectedGroup, setSelectedGroup] = useState(null);
+  const mapRef = useRef(null);
 
   const toggleGroup = (group) => {
     setSelectedGroup(selectedGroup === group ? null : group);
@@ -25,14 +55,39 @@ const WorldMap = () => {
     }
   };
 
+  useEffect(() => {
+    const el = mapRef.current;
+    if (!el) return;
+    const handleMove = (e) => {
+      const rect = el.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+      const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+      el.style.setProperty('--mx', `${(e.clientX - rect.left) / rect.width * 100}%`);
+      el.style.setProperty('--my', `${(e.clientY - rect.top) / rect.height * 100}%`);
+      el.style.transform = `perspective(1200px) rotateY(${x * 3}deg) rotateX(${-y * 3}deg) translateZ(0)`;
+      el.style.transition = 'transform 0.08s ease-out';
+    };
+    const handleLeave = () => {
+      el.style.transform = 'perspective(1200px) rotateY(0deg) rotateX(0deg) translateZ(0)';
+      el.style.transition = 'transform 0.5s ease-out';
+    };
+    el.addEventListener('mousemove', handleMove);
+    el.addEventListener('mouseleave', handleLeave);
+    return () => {
+      el.removeEventListener('mousemove', handleMove);
+      el.removeEventListener('mouseleave', handleLeave);
+    };
+  }, []);
+
   return (
     <div className="world-map-container">
+      <Particles />
       <div className="map-header">
         <h1>FIFA World Cup 2026</h1>
         <p className="map-subtitle">Captains of all 48 qualified nations</p>
       </div>
 
-      <div className="map-wrapper">
+      <div className="map-wrapper" ref={mapRef}>
         <ComposableMap
           projection="geoMercator"
           projectionConfig={{ scale: 130, center: [10, 25] }}
