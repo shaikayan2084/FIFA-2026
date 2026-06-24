@@ -249,15 +249,7 @@
   color: #8888aa;
 }
 
-.globe-container {
-  width: 100%;
-  height: 100%;
-  cursor: grab;
-}
 
-.globe-container:active {
-  cursor: grabbing;
-}
 
 .group-team-winner {
   font-size: 0.7rem;
